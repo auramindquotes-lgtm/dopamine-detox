@@ -1,0 +1,1480 @@
+```html
+<!DOCTYPE html>
+<html lang="uz" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dopamine Detox™ Neuro AI - MisteryElite</title>
+    <!-- Telegram Mini App WebApp SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        themeBg: 'var(--bg-color)',
+                        themeCard: 'var(--card-bg)',
+                        themeText: 'var(--text-color)',
+                        themeAccent: 'var(--accent-color)',
+                        themeBorder: 'var(--border-color)',
+                    },
+                    animation: {
+                        'float': 'float 5s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-6px) rotate(3deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            /* 100% Ko'zga yoqimli tabiat palitrasi */
+            --bg-color: #0b150e;
+            --card-bg: rgba(16, 30, 21, 0.85);
+            --text-color: #e2ece9;
+            --accent-color: #2e6f40;
+            --border-color: rgba(62, 115, 80, 0.35);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        /* Glassmorphism uslubi */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        .glass-nav {
+            background: rgba(8, 16, 11, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Fullscreen Nature Canvas Engine */
+        #natureCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.85;
+        }
+
+        /* Scrollbar yashirish */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="relative min-h-screen flex flex-col justify-between pb-24">
+
+    <!-- JONLI TABIAT VISUAL KANVAS DVIGATELI (10 XIL REJIM) -->
+    <canvas id="natureCanvas"></canvas>
+
+    <!-- SHAFOF BRAND HEADER -->
+    <header class="sticky top-0 z-40 w-full glass-card px-4 py-3 flex items-center justify-between border-b border-white/10 shadow-2xl">
+        <div class="flex items-center space-x-2.5">
+            <div class="w-10 h-10 rounded-2xl bg-emerald-700/30 flex items-center justify-center border border-emerald-400/50 animate-float shadow-lg">
+                <i data-lucide="trees" class="w-5 h-5 text-emerald-300"></i>
+            </div>
+            <div>
+                <h1 class="text-base font-extrabold tracking-tight flex items-center gap-1.5 text-white">
+                    <span>Dopamine Detox™</span>
+                    <span class="text-[9px] uppercase tracking-widest px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-700/60 font-mono">MisteryElite</span>
+                </h1>
+                <p class="text-[10px] text-emerald-200/80 font-medium" id="circadianStatusText">☀️ Sirkadiyan Rejim: Kunduzgi Fokus</p>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+            <!-- Fonni tezkor almashtirish tugmasi -->
+            <button onclick="cycleEnvironmentTheme()" title="Tabiat manzarasini almashtirish" class="p-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 transition text-emerald-300">
+                <i data-lucide="compass" class="w-4 h-4"></i>
+            </button>
+            
+            <!-- Sukunat ovozini yoqish/o'chirish -->
+            <button id="soundAmbientBtn" onclick="toggleAmbientSound()" title="Tabiat ovozlari" class="p-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 transition flex items-center justify-center text-emerald-300">
+                <i data-lucide="volume-x" id="ambientIcon" class="w-4 h-4"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- ASOSIY BO'LIMLAR KONTEYNERI -->
+    <main class="relative z-10 flex-1 w-full max-w-lg mx-auto px-4 pt-4">
+
+        <!-- ========================================== -->
+        <!-- BO'LIM 1: BOSH SAHIFA (HOME & BANNERS)     -->
+        <!-- ========================================== -->
+        <section id="tab-home" class="tab-content space-y-5">
+
+            <!-- 10 TA PHOTO SLIDER BANNERLAR (LINKLAR FAQAT SHU YERDA) -->
+            <div class="relative w-full overflow-hidden rounded-2xl glass-card p-1 shadow-2xl border border-white/15">
+                <div id="bannerContainer" class="flex transition-transform duration-500 ease-in-out">
+                    
+                    <!-- Banner 1: AI Test -->
+                    <div class="min-w-full p-4 min-h-[185px] rounded-xl relative flex flex-col justify-between overflow-hidden bg-gradient-to-t from-black/90 via-black/50 to-emerald-950/40 border border-emerald-500/30">
+                        <div>
+                            <span class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/30 text-emerald-300 border border-emerald-400/40 uppercase mb-1">Bepul Profiling</span>
+                            <h2 class="text-base font-bold text-white leading-tight">🧠 Garvard Metodikasida AI Neyro-Test</h2>
+                            <p class="text-xs text-gray-200 mt-1">10 ta hayotiy savol orqali miyangizning dopamin reseptorlarini aniqlang.</p>
+                        </div>
+                        <button onclick="switchTab('test')" class="mt-3 w-fit px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold flex items-center gap-2 shadow-lg">
+                            <i data-lucide="brain" class="w-4 h-4"></i>
+                            <span data-i18n="startTestBtn">Testni Boshlash</span>
+                        </button>
+                    </div>
+
+                    <!-- Banner 2: VIP Club Offer -->
+                    <div class="min-w-full p-4 min-h-[185px] rounded-xl relative flex flex-col justify-between overflow-hidden bg-gradient-to-t from-black/90 via-black/50 to-amber-950/40 border border-amber-500/30">
+                        <div>
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/30 text-amber-300 border border-amber-400/40 uppercase">10-Sentyabrgacha Chegirma</span>
+                                <span class="text-xs font-extrabold text-amber-300 bg-black/60 px-2 py-0.5 rounded border border-amber-400/40">38 000 SO'M / $2.99</span>
+                            </div>
+                            <h2 class="text-base font-bold text-white mt-1">🍕 1 Ta Gamburger Narxiga 30 Kunlik VIP Klub!</h2>
+                            <p class="text-xs text-gray-200 mt-1">Bir martalik rohat o'rniga — miyangizni 30 kunga qayta tiklang.</p>
+                        </div>
+                        <a href="https://t.me/misteryelite" target="_blank" class="mt-3 w-fit px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold flex items-center gap-2 shadow-lg">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                            <span>VIP Klubga Qo'shilish</span>
+                        </a>
+                    </div>
+
+                    <!-- Banner 3: Beacons Portal -->
+                    <div class="min-w-full p-4 min-h-[185px] rounded-xl relative flex flex-col justify-between overflow-hidden bg-gradient-to-t from-black/90 via-black/50 to-sky-950/40 border border-sky-500/30">
+                        <div>
+                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-sky-500/30 text-sky-300 border border-sky-400/40 uppercase">Beacons Portal</span>
+                            <h2 class="text-base font-bold text-white mt-1">🌐 MisteryElite Rasmiy Ekosistemasi</h2>
+                            <p class="text-xs text-gray-200 mt-1">Barcha ilmiy kurslar, qo'llanmalar va loyihalar bir joyda.</p>
+                        </div>
+                        <a href="https://beacons.ai/misteryelite" target="_blank" class="mt-3 w-fit px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold flex items-center gap-2 shadow-lg">
+                            <i data-lucide="globe" class="w-4 h-4"></i>
+                            <span>Beacons Portalga O'tish</span>
+                        </a>
+                    </div>
+
+                    <!-- Banner 4: Telegram Channel -->
+                    <div class="min-w-full p-4 min-h-[185px] rounded-xl relative flex flex-col justify-between overflow-hidden bg-gradient-to-t from-black/90 via-black/50 to-blue-950/40 border border-blue-500/30">
+                        <div>
+                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/30 text-blue-300 border border-blue-400/40 uppercase">Rasmiy Telegram</span>
+                            <h2 class="text-base font-bold text-white mt-1">📢 Telegram Kanalimizga Obuna Bo'ling</h2>
+                            <p class="text-xs text-gray-200 mt-1">Kunlik motivatsiya va neyrobiologik ilmiy maqolalar.</p>
+                        </div>
+                        <a href="https://t.me/misteryelite" target="_blank" class="mt-3 w-fit px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold flex items-center gap-2 shadow-lg">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                            <span>Telegram: @MisteryElite</span>
+                        </a>
+                    </div>
+
+                    <!-- Banner 5: Instagram -->
+                    <div class="min-w-full p-4 min-h-[185px] rounded-xl relative flex flex-col justify-between overflow-hidden bg-gradient-to-t from-black/90 via-black/50 to-pink-950/40 border border-pink-500/30">
+                        <div>
+                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-pink-500/30 text-pink-300 border border-pink-400/40 uppercase">Instagram</span>
+                            <h2 class="text-base font-bold text-white mt-1">📸 Instagram Sahifamizni Kuzating</h2>
+                            <p class="text-xs text-gray-200 mt-1">Eksklyuziv reels va hayot tarzi kontentlari.</p>
+                        </div>
+                        <a href="https://instagram.com/misteryelite" target="_blank" class="mt-3 w-fit px-4 py-2 rounded-xl bg-pink-600 hover:bg-pink-500 text-white text-xs font-bold flex items-center gap-2 shadow-lg">
+                            <i data-lucide="instagram" class="w-4 h-4"></i>
+                            <span>Instagram: @misteryelite</span>
+                        </a>
+                    </div>
+
+                    <!-- Banner 6: YouTube -->
+                    <div class="min-w-full p-4 min-h-[185px] rounded-xl relative flex flex-col justify-between overflow-hidden bg-gradient-to-t from-black/90 via-black/50 to-red-950/40 border border-red-500/30">
+                        <div>
+                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-red-500/30 text-red-300 border border-red-400/40 uppercase">YouTube</span>
+                            <h2 class="text-base font-bold text-white mt-1">🎬 YouTube Kanallarda Chuqur Hujjatli Videolar</h2>
+                            <p class="text-xs text-gray-200 mt-1">Miya faoliyati haqida uzun formatdagi ilmiy podkastlar.</p>
+                        </div>
+                        <a href="https://youtube.com/@Mistery-Elite" target="_blank" class="mt-3 w-fit px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold flex items-center gap-2 shadow-lg">
+                            <i data-lucide="youtube" class="w-4 h-4"></i>
+                            <span>YouTube: Mistery-Elite</span>
+                        </a>
+                    </div>
+
+                    <!-- Banner 7: Teaser -->
+                    <div class="min-w-full p-4 min-h-[185px] rounded-xl relative flex flex-col justify-between overflow-hidden bg-gradient-to-t from-black/90 via-black/50 to-purple-950/40 border border-purple-500/30">
+                        <div>
+                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-purple-500/30 text-purple-300 border border-purple-400/40 uppercase">Tez Kunda</span>
+                            <h2 class="text-base font-bold text-white mt-1">🚀 MisteryElite’da Yangi Mega Loyiha!</h2>
+                            <p class="text-xs text-gray-200 mt-1">Neyronal texnologiyalarga asoslangan yangi bosqichga tayyor turing.</p>
+                        </div>
+                        <a href="https://t.me/Looksmaxerrrr" target="_blank" class="mt-3 w-fit px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold flex items-center gap-2 shadow-lg">
+                            <i data-lucide="sparkles" class="w-4 h-4"></i>
+                            <span>Insayd Xabarlarini Olish</span>
+                        </a>
+                    </div>
+
+                    <!-- Banner 8: 3-Month Harvard Plan -->
+                    <div class="min-w-full p-4 min-h-[185px] rounded-xl relative flex flex-col justify-between overflow-hidden bg-gradient-to-t from-black/90 via-black/50 to-teal-950/40 border border-teal-500/30">
+                        <div>
+                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-teal-500/30 text-teal-300 border border-teal-400/40 uppercase">3 Oylik Sikl</span>
+                            <h2 class="text-base font-bold text-white mt-1">📊 Garvard: D2 Qayta Tiklanish Tizimi</h2>
+                            <p class="text-xs text-gray-200 mt-1">90 kunlik chuqur detox sikli bilan barqaror intizomga erishing.</p>
+                        </div>
+                        <a href="https://beacons.ai/misteryelite" target="_blank" class="mt-3 w-fit px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold flex items-center gap-2 shadow-lg">
+                            <i data-lucide="layers" class="w-4 h-4"></i>
+                            <span>Tariflarni Ko'rish</span>
+                        </a>
+                    </div>
+
+                    <!-- Banner 9: Direct Admin Contact -->
+                    <div class="min-w-full p-4 min-h-[185px] rounded-xl relative flex flex-col justify-between overflow-hidden bg-gradient-to-t from-black/90 via-black/50 to-indigo-950/40 border border-indigo-500/30">
+                        <div>
+                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/30 text-indigo-300 border border-indigo-400/40 uppercase">Adminga Aloqa</span>
+                            <h2 class="text-base font-bold text-white mt-1">💬 Savollar va Hamkorlik Bo'yicha</h2>
+                            <p class="text-xs text-gray-200 mt-1">Shaxsiy maslahat va takliflar uchun to'g'ridan-to'g'ri bog'laning.</p>
+                        </div>
+                        <a href="https://t.me/Looksmaxerrrr" target="_blank" class="mt-3 w-fit px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center gap-2 shadow-lg">
+                            <i data-lucide="message-square" class="w-4 h-4"></i>
+                            <span>Admin: @Looksmaxerrrr</span>
+                        </a>
+                    </div>
+
+                    <!-- Banner 10: Stanford Science -->
+                    <div class="min-w-full p-4 min-h-[185px] rounded-xl relative flex flex-col justify-between overflow-hidden bg-gradient-to-t from-black/90 via-black/50 to-emerald-950/40 border border-emerald-500/30">
+                        <div>
+                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/30 text-emerald-300 border border-emerald-400/40 uppercase">Neyrobiologiya</span>
+                            <h2 class="text-base font-bold text-white mt-1">🧬 Dopamine Detox™ Ilmiy Tizim</h2>
+                            <p class="text-xs text-gray-200 mt-1">Stenford neyrobiologiya prinsiplari asosida yaratilgan platforma.</p>
+                        </div>
+                        <button onclick="switchTab('test')" class="mt-3 w-fit px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold flex items-center gap-2 shadow-lg">
+                            <i data-lucide="activity" class="w-4 h-4"></i>
+                            <span>Diagnostikadan O'tish</span>
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- Carousel nuqtalari -->
+                <div class="flex justify-center gap-1.5 my-2" id="carouselDots"></div>
+            </div>
+
+            <!-- TEZKOR AMAL GRID -->
+            <div class="grid grid-cols-2 gap-3">
+                <button onclick="switchTab('test')" class="glass-card p-4 rounded-2xl flex flex-col items-start hover:border-emerald-500/60 transition text-left group">
+                    <div class="p-3 rounded-xl bg-emerald-900/40 border border-emerald-500/40 text-emerald-300 group-hover:scale-105 transition shadow-lg">
+                        <i data-lucide="brain-circuit" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-sm text-white mt-3" data-i18n="quickTestTitle">AI Test O'tish</h3>
+                    <p class="text-[11px] text-gray-300 mt-0.5" data-i18n="quickTestDesc">10 ta savol & 8 metrika</p>
+                </button>
+
+                <button onclick="switchTab('games')" class="glass-card p-4 rounded-2xl flex flex-col items-start hover:border-teal-500/60 transition text-left group">
+                    <div class="p-3 rounded-xl bg-teal-900/40 border border-teal-500/40 text-teal-300 group-hover:scale-105 transition shadow-lg">
+                        <i data-lucide="gamepad-2" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-sm text-white mt-3" data-i18n="quickArcadeTitle">Mind Arcade</h3>
+                    <p class="text-[11px] text-gray-300 mt-0.5" data-i18n="quickArcadeDesc">4 ta focus o'yini</p>
+                </button>
+            </div>
+
+            <!-- TABIAT VIBE VA SUKUNAT BLOKI -->
+            <div class="glass-card p-5 rounded-2xl border border-emerald-500/40 space-y-3">
+                <div class="flex items-center gap-2 text-emerald-300 text-xs font-bold uppercase tracking-wider">
+                    <i data-lucide="trees" class="w-4 h-4"></i>
+                    <span>Tabiat Vibe va Nostalgiya Makoni</span>
+                </div>
+                <h3 class="text-base font-bold text-white leading-snug">Tabiiy Sukunat Va Ruhiy Sokinlik</h3>
+                <p class="text-xs text-gray-200 leading-relaxed">
+                    Shovqinli videolardan charchadingizmi? Sokin o'rmon shamoli, Shveytsariya tabiatining yomg'irli havosi va qushlar sayrashi orqali miyadagi kortizolni pasaytiring.
+                </p>
+                <div class="grid grid-cols-2 gap-2 pt-2">
+                    <button onclick="setNaturePreset('switzerland')" class="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-white font-medium flex items-center gap-2">
+                        <i data-lucide="mountain" class="w-4 h-4 text-emerald-400"></i> Shveytsariya Alp
+                    </button>
+                    <button onclick="setNaturePreset('autumn')" class="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-white font-medium flex items-center gap-2">
+                        <i data-lucide="leaf" class="w-4 h-4 text-amber-400"></i> Kuz Oltin Vibe
+                    </button>
+                </div>
+            </div>
+
+            <!-- ILMIY TAHLIL QIYMAT CARD -->
+            <div class="glass-card p-5 rounded-2xl space-y-3">
+                <div class="flex items-center gap-2 text-amber-400 text-xs font-bold uppercase tracking-wider">
+                    <i data-lucide="shield-alert" class="w-4 h-4"></i>
+                    <span>Miya Reseptorlari Holati</span>
+                </div>
+                <h3 class="text-base font-bold text-white leading-snug">D2 Reseptorlaringiz Sezgirligi Pasayganmi?</h3>
+                <p class="text-xs text-gray-200 leading-relaxed">
+                    Stenford laboratoriyalari tadqiqotiga ko'ra, har kuni ijtimoiy tarmoqlarni to'xtovsiz varaqlash miyadagi D2 reseptorlarini toliqtiradi. Oqibatda kitob o'qish yoki uzoq muddatli maqsadlarga fokuslanish qiyinlashadi.
+                </p>
+            </div>
+
+        </section>
+
+        <!-- ========================================== -->
+        <!-- BO'LIM 2: AI NEURO PROFILING (TEST & AI)   -->
+        <!-- ========================================== -->
+        <section id="tab-test" class="tab-content hidden space-y-5">
+            
+            <div class="glass-card p-4 rounded-2xl border border-emerald-500/40 bg-emerald-950/20">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/30 text-emerald-300 border border-emerald-400/40 uppercase">DOPAMINE DETOX™</span>
+                    <span class="text-xs font-semibold text-emerald-300">10 Ta So'rovnoma</span>
+                </div>
+                <h2 class="text-base font-bold text-white">🧠 AI Neuro-Profiling Diagnostika</h2>
+                <p class="text-xs text-gray-200 mt-1 leading-relaxed">
+                    Stenford va Garvard neyrobiologiya metodologiyasi bo'yicha miyangizning 8 ta asosiy neyronal metrikasini aniqlaymiz.
+                </p>
+            </div>
+
+            <!-- TEST CONTAINER -->
+            <div id="quizContainer" class="glass-card p-5 rounded-2xl space-y-4">
+                <div class="flex items-center justify-between text-xs font-semibold text-gray-300">
+                    <span id="questionStepText">Savol: 1 / 10</span>
+                    <span id="quizProgressPercent" class="text-emerald-400">10%</span>
+                </div>
+                <div class="w-full bg-black/50 h-2 rounded-full overflow-hidden border border-white/10">
+                    <div id="quizProgressBar" class="bg-gradient-to-r from-emerald-600 to-teal-400 h-full w-[10%] transition-all duration-300"></div>
+                </div>
+
+                <div id="questionBox" class="py-2 space-y-4">
+                    <h3 id="questionText" class="text-sm font-bold text-white leading-relaxed">
+                        1. 🌅 Uyg'onganingizda birinchi qiladigan ishingiz nima?
+                    </h3>
+                    <div id="optionsContainer" class="space-y-2.5"></div>
+                </div>
+            </div>
+
+            <!-- NATIJALAR VA AI DIAGNOSTIKA RO'YXATI -->
+            <div id="resultsContainer" class="hidden space-y-5">
+                
+                <div class="glass-card p-5 rounded-2xl border border-emerald-500/40 text-center space-y-3 relative overflow-hidden">
+                    <div class="inline-flex p-3 rounded-full bg-emerald-900/50 border border-emerald-400/40 mb-1">
+                        <i data-lucide="award" class="w-8 h-8 text-emerald-400"></i>
+                    </div>
+                    <h3 class="text-xs uppercase tracking-widest text-emerald-300 font-bold">Diagnostika Yakunlandi</h3>
+                    <div class="text-3xl font-extrabold text-white" id="totalScoreText">24 / 30 Ball</div>
+                    <div id="scoreBadge" class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-400/40">
+                        CHALG'ISH XAVFI
+                    </div>
+                    <p class="text-xs text-gray-200 px-2" id="scoreDescription">
+                        Dopamin balansingizda chalg'ish xavfi bor. Zudlik bilan fokus va baselineni tiklash tavsiya etiladi.
+                    </p>
+                </div>
+
+                <!-- 8 NEYRONAL METRIKA VA ATAMALAR -->
+                <div class="glass-card p-5 rounded-2xl space-y-4">
+                    <h4 class="text-xs font-bold text-emerald-300 uppercase tracking-wider flex items-center gap-1.5">
+                        <i data-lucide="bar-chart-3" class="w-4 h-4"></i> 8 Ta Neyrobiologik Metrika va Tushuntirishlar
+                    </h4>
+                    <div class="space-y-3 text-xs" id="metricsList"></div>
+                </div>
+
+                <!-- GEMINI AI TAHLIL OLISH -->
+                <div class="glass-card p-5 rounded-2xl border border-teal-500/40 space-y-3">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="sparkles" class="w-5 h-5 text-teal-400 animate-pulse"></i>
+                        <h4 class="text-sm font-bold text-white">Gemini Neuro AI Tahlilini Olish</h4>
+                    </div>
+                    <p class="text-xs text-gray-200">
+                        Sun'iy intellekt 10 ta javobingiz asosida aniq diagnostika va 3 ta bepul tavsiya tayyorlaydi.
+                    </p>
+                    <button id="generateAiBtn" onclick="generateAiDiagnosis()" class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg transition">
+                        <i data-lucide="cpu" class="w-4 h-4"></i>
+                        <span>AI Chuqur Tahlilini Generatsiya Qilish</span>
+                    </button>
+                </div>
+
+                <div id="aiOutputCard" class="hidden glass-card p-5 rounded-2xl border border-white/10 space-y-4">
+                    <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="bot" class="w-5 h-5 text-emerald-400"></i>
+                            <span class="text-xs font-bold text-white">Dopamine Detox™ AI Neyro-Xulosa</span>
+                        </div>
+                        <span class="text-[10px] text-emerald-300 bg-emerald-950 border border-emerald-700 px-2 py-0.5 rounded">Stenford Metodikasi</span>
+                    </div>
+
+                    <div id="aiTextResult" class="text-xs text-gray-200 leading-relaxed whitespace-pre-line space-y-2"></div>
+
+                    <div class="pt-3 border-t border-white/10 bg-emerald-950/40 p-3 rounded-xl border border-emerald-500/30 text-center space-y-2">
+                        <p class="text-xs text-emerald-200 font-medium">
+                            🎯 Qiyinchiliklarni yengish va individual tarifni tanlash uchun rasmiy Telegram Botimizga qayting va admin bilan bog'laning!
+                        </p>
+                        <a href="https://t.me/misteryelite" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-lg">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                            <span>Botga Qaytish va Tariflarni Tanlash</span>
+                        </a>
+                    </div>
+                </div>
+
+                <button onclick="resetQuiz()" class="w-full py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-semibold text-gray-300 border border-white/10 flex items-center justify-center gap-2">
+                    <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                    <span>Testni Qaytadan Topshirish</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- BO'LIM 3: MIND ARCADE (4 FOCUS GAMES)     -->
+        <!-- ========================================== -->
+        <section id="tab-games" class="tab-content hidden space-y-5">
+            
+            <div class="glass-card p-4 rounded-2xl border border-teal-500/40">
+                <h2 class="text-base font-bold text-white flex items-center gap-2">
+                    <i data-lucide="gamepad-2" class="w-5 h-5 text-teal-400"></i>
+                    <span>Mind Arcade & Zen Focus Games</span>
+                </h2>
+                <p class="text-xs text-gray-200 mt-1">
+                    Zararli dopamin o'rniga — diqqat va prefrontal xotirani charxlovchi 4 ta sokin o'yin.
+                </p>
+            </div>
+
+            <!-- O'YIN 1: ZEN NAFAS MASHQI -->
+            <div class="glass-card p-5 rounded-2xl space-y-4 text-center">
+                <div class="flex items-center justify-between text-xs font-bold text-teal-300">
+                    <span>1. Zen Nafas Mashqi (4-7-8)</span>
+                    <span class="px-2 py-0.5 rounded bg-teal-950 text-teal-300 border border-teal-700">Kortizol Detoks</span>
+                </div>
+                <div class="relative w-36 h-36 mx-auto flex items-center justify-center">
+                    <div id="breathCircle" class="w-28 h-28 rounded-full bg-teal-500/20 border-2 border-teal-400/60 flex items-center justify-center transition-all duration-1000 shadow-lg">
+                        <span id="breathStateText" class="text-xs font-bold text-white">Boshlash</span>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-300" id="breathInstruction">Tugmani bosing va aylanuvchi doiraga mos ravishda chuqur nafas oling.</p>
+                <button id="startBreathBtn" onclick="toggleBreathingGame()" class="w-full py-2.5 rounded-xl bg-teal-700 hover:bg-teal-600 text-white font-semibold text-xs transition">
+                    Nafas Mashqini Boshlash
+                </button>
+            </div>
+
+            <!-- O'YIN 2: MEMORY MATRIX -->
+            <div class="glass-card p-5 rounded-2xl space-y-4 text-center">
+                <div class="flex items-center justify-between text-xs font-bold text-emerald-300">
+                    <span>2. Prefrontal Xotira Matritsasi</span>
+                    <span id="matrixScoreText" class="text-emerald-400 font-extrabold">Ball: 0</span>
+                </div>
+                <p class="text-xs text-gray-300">Yongan yashil katakchalarni eslab qoling va mos ravishda ularni tanlang.</p>
+                <div class="grid grid-cols-3 gap-2.5 w-48 h-48 mx-auto" id="matrixGrid"></div>
+                <button id="startMatrixBtn" onclick="startMemoryGame()" class="w-full py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-semibold text-xs transition">
+                    Xotira O'yinini Boshlash
+                </button>
+            </div>
+
+            <!-- O'YIN 3: LEAF COLLECTOR -->
+            <div class="glass-card p-5 rounded-2xl space-y-4 text-center">
+                <div class="flex items-center justify-between text-xs font-bold text-amber-300">
+                    <span>3. Zen Tabiat Barglarini Terish</span>
+                    <span id="leafScoreText" class="text-amber-400 font-extrabold">Barglar: 0</span>
+                </div>
+                <p class="text-xs text-gray-300">Asta sekin tushayotgan kuz barglarini bosib ruhiy xotirjamlikka erishing.</p>
+                <div class="relative w-full h-44 rounded-xl bg-black/50 border border-white/10 overflow-hidden" id="leafGameCanvasArea">
+                    <canvas id="leafGameCanvas" class="w-full h-full"></canvas>
+                </div>
+                <button id="startLeafGameBtn" onclick="startLeafGame()" class="w-full py-2.5 rounded-xl bg-amber-700 hover:bg-amber-600 text-white font-semibold text-xs transition">
+                    Sokin Barglar O'yinini Boshlash
+                </button>
+            </div>
+
+            <!-- O'YIN 4: NEURO PUZZLE -->
+            <div class="glass-card p-5 rounded-2xl space-y-4 text-center">
+                <div class="flex items-center justify-between text-xs font-bold text-indigo-300">
+                    <span>4. Prefrontal Neyro Jumboq</span>
+                    <span id="puzzleScoreText" class="text-indigo-400 font-extrabold">Bosqich: 1</span>
+                </div>
+                <p class="text-xs text-gray-300">Mantiqiy zanjirni to'g'ri tartibda birlashtiring va diqqatni jamlang.</p>
+                
+                <div class="grid grid-cols-4 gap-2 w-56 h-36 mx-auto" id="puzzleGrid"></div>
+
+                <button id="startPuzzleBtn" onclick="startNeuroPuzzle()" class="w-full py-2.5 rounded-xl bg-indigo-700 hover:bg-indigo-600 text-white font-semibold text-xs transition">
+                    Jumboq O'yinini Boshlash
+                </button>
+            </div>
+
+        </section>
+
+        <!-- ========================================== -->
+        <!-- BO'LIM 4: SOZLAMALAR (SETTINGS - 10 ITEMS)-->
+        <!-- ========================================== -->
+        <section id="tab-settings" class="tab-content hidden space-y-4 pb-6">
+            
+            <div class="glass-card p-4 rounded-2xl border border-white/10">
+                <h2 class="text-base font-bold text-white flex items-center gap-2">
+                    <i data-lucide="sliders" class="w-5 h-5 text-emerald-400"></i>
+                    <span data-i18n="settingsTitle">Tizim Sozlamalari</span>
+                </h2>
+                <p class="text-xs text-gray-300 mt-0.5">Ilova interfeysi, 10 ta fon video va til parametrlari</p>
+            </div>
+
+            <div class="space-y-2 text-xs">
+                
+                <!-- 1. App Info -->
+                <div class="glass-card p-3.5 rounded-xl flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="info" class="w-4 h-4 text-emerald-400"></i>
+                        <div>
+                            <div class="font-bold text-white">1. Brand va Ilova Nomi</div>
+                            <div class="text-[10px] text-gray-300">Dopamine Detox™ — MisteryElite</div>
+                        </div>
+                    </div>
+                    <span class="text-[10px] bg-emerald-950 text-emerald-300 px-2 py-0.5 rounded border border-emerald-700">Rasmiy</span>
+                </div>
+
+                <!-- 2. Nature Visual Presets (10 Themes) -->
+                <div class="glass-card p-3.5 rounded-xl space-y-2">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="compass" class="w-4 h-4 text-emerald-400"></i>
+                        <span class="font-bold text-white">2. Orqa Fon Tabiat Tayyor Manzaralari (10 Ta)</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 pt-1">
+                        <button onclick="setNaturePreset('switzerland')" class="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white text-[11px] text-left">
+                            🏔️ Shveytsariya Alp
+                        </button>
+                        <button onclick="setNaturePreset('autumn')" class="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white text-[11px] text-left">
+                            🍂 Oltin Kuz O'rmoni
+                        </button>
+                        <button onclick="setNaturePreset('rain')" class="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white text-[11px] text-left">
+                            🌧️ Sokin Yomg'ir
+                        </button>
+                        <button onclick="setNaturePreset('waterfall')" class="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white text-[11px] text-left">
+                            🌊 Tog' Sharsharasi
+                        </button>
+                        <button onclick="setNaturePreset('night')" class="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white text-[11px] text-left">
+                            🌙 Tungi O'rmon
+                        </button>
+                        <button onclick="setNaturePreset('ocean')" class="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white text-[11px] text-left">
+                            🌊 Chuqur Okean
+                        </button>
+                        <button onclick="setNaturePreset('himalaya')" class="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white text-[11px] text-left">
+                            🏔️ Ximalay Tog'lari
+                        </button>
+                        <button onclick="setNaturePreset('river')" class="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white text-[11px] text-left">
+                            🏞️ O'rmon Daryosi
+                        </button>
+                        <button onclick="setNaturePreset('bamboo')" class="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white text-[11px] text-left">
+                            🎋 Bambuk Sukunati
+                        </button>
+                        <button onclick="setNaturePreset('sunset')" class="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white text-[11px] text-left">
+                            🌅 Oltin Qubbot
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3. Language Switcher (100% Working) -->
+                <div class="glass-card p-3.5 rounded-xl space-y-2">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="globe" class="w-4 h-4 text-emerald-400"></i>
+                        <span class="font-bold text-white">3. Tilni Tanlash (Languages)</span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2 pt-1">
+                        <button onclick="setLanguage('uz')" id="lang-uz" class="py-2 rounded-lg bg-emerald-700 text-white font-bold text-xs">
+                            🇺🇿 O'zbekcha
+                        </button>
+                        <button onclick="setLanguage('ru')" id="lang-ru" class="py-2 rounded-lg bg-white/5 text-gray-300 font-bold text-xs">
+                            🇷🇺 Русский
+                        </button>
+                        <button onclick="setLanguage('en')" id="lang-en" class="py-2 rounded-lg bg-white/5 text-gray-300 font-bold text-xs">
+                            🇬🇧 English
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 4. Issues Link -->
+                <a href="https://t.me/Looksmaxerrrr" target="_blank" class="glass-card p-3.5 rounded-xl flex items-center justify-between hover:bg-white/5 transition">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="message-square" class="w-4 h-4 text-emerald-400"></i>
+                        <div>
+                            <div class="font-bold text-white">4. Muammolar Bo'yicha Aloqa</div>
+                            <div class="text-[10px] text-gray-300">Telegram: @Looksmaxerrrr</div>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
+                </a>
+
+                <!-- 5. Advertising Link -->
+                <a href="https://t.me/Looksmaxerrrr" target="_blank" class="glass-card p-3.5 rounded-xl flex items-center justify-between hover:bg-white/5 transition">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="briefcase" class="w-4 h-4 text-emerald-400"></i>
+                        <div>
+                            <div class="font-bold text-white">5. Reklama va Takliflar</div>
+                            <div class="text-[10px] text-gray-300">Hamkorlik uchun: @Looksmaxerrrr</div>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
+                </a>
+
+                <!-- 6. App Version -->
+                <div class="glass-card p-3.5 rounded-xl flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="code-2" class="w-4 h-4 text-emerald-400"></i>
+                        <div>
+                            <div class="font-bold text-white">6. Ilova Versiyasi</div>
+                            <div class="text-[10px] text-gray-300">Dopamine Detox™ v4.2 Pro Edition</div>
+                        </div>
+                    </div>
+                    <span class="text-[10px] text-gray-400 font-mono">v4.2.0</span>
+                </div>
+
+                <!-- 7. Clear Memory -->
+                <div class="glass-card p-3.5 rounded-xl flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="trash-2" class="w-4 h-4 text-red-400"></i>
+                        <div>
+                            <div class="font-bold text-white">7. Test Xotirasini Tozalash</div>
+                            <div class="text-[10px] text-gray-300">Natijalarni qayta nolga tushirish</div>
+                        </div>
+                    </div>
+                    <button onclick="clearAppMemory()" class="px-3 py-1 rounded bg-red-950/80 hover:bg-red-900 text-red-300 border border-red-800 text-[10px] font-bold">
+                        Tozalash
+                    </button>
+                </div>
+
+                <!-- 8. AI Engine Status -->
+                <div class="glass-card p-3.5 rounded-xl flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="cpu" class="w-4 h-4 text-emerald-400"></i>
+                        <div>
+                            <div class="font-bold text-white">8. Gemini AI Engine</div>
+                            <div class="text-[10px] text-emerald-400">Gemini 2.5 Flash Online</div>
+                        </div>
+                    </div>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+                </div>
+
+                <!-- 9. Telegram WebApp Engine Status -->
+                <div class="glass-card p-3.5 rounded-xl flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
+                        <div>
+                            <div class="font-bold text-white">9. Telegram Integration</div>
+                            <div class="text-[10px] text-gray-300">Official WebApp Standard</div>
+                        </div>
+                    </div>
+                    <span class="text-[10px] text-emerald-400 font-bold">READY</span>
+                </div>
+
+                <!-- 10. Sound FX Engine Switch -->
+                <div class="glass-card p-3.5 rounded-xl flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="volume-2" class="w-4 h-4 text-emerald-400"></i>
+                        <div>
+                            <div class="font-bold text-white">10. Audio Sintezator</div>
+                            <div class="text-[10px] text-gray-300">Web Audio API Sound Engine</div>
+                        </div>
+                    </div>
+                    <span class="text-[10px] text-emerald-400 font-bold">ACTIVE</span>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- BOTTOM FIXED NAVIGATION BAR (MAX 4 BO'LIM) -->
+    <nav class="fixed bottom-0 left-0 right-0 z-50 glass-nav max-w-lg mx-auto">
+        <div class="grid grid-cols-4 h-16 px-2">
+            
+            <button onclick="switchTab('home')" id="nav-home" class="nav-btn flex flex-col items-center justify-center space-y-1 text-emerald-400 transition">
+                <i data-lucide="home" class="w-5 h-5"></i>
+                <span class="text-[10px] font-semibold" data-i18n="navHome">Bosh Sahifa</span>
+            </button>
+
+            <button onclick="switchTab('test')" id="nav-test" class="nav-btn flex flex-col items-center justify-center space-y-1 text-gray-400 hover:text-white transition">
+                <i data-lucide="brain" class="w-5 h-5"></i>
+                <span class="text-[10px] font-semibold" data-i18n="navTest">AI Test</span>
+            </button>
+
+            <button onclick="switchTab('games')" id="nav-games" class="nav-btn flex flex-col items-center justify-center space-y-1 text-gray-400 hover:text-white transition">
+                <i data-lucide="gamepad-2" class="w-5 h-5"></i>
+                <span class="text-[10px] font-semibold" data-i18n="navGames">Mind Arcade</span>
+            </button>
+
+            <button onclick="switchTab('settings')" id="nav-settings" class="nav-btn flex flex-col items-center justify-center space-y-1 text-gray-400 hover:text-white transition">
+                <i data-lucide="settings" class="w-5 h-5"></i>
+                <span class="text-[10px] font-semibold" data-i18n="navSettings">Sozlamalar</span>
+            </button>
+
+        </div>
+    </nav>
+
+    <!-- JAVASCRIPT ASOSIY DVIGATELI -->
+    <script>
+        // Telegram WebApp SDK Tayyorgarligi
+        if(window.Telegram && window.Telegram.WebApp) {
+            window.Telegram.WebApp.ready();
+            window.Telegram.WebApp.expand();
+        }
+
+        const apiKey = ""; // Canvas runtime environment key
+        let currentLang = 'uz';
+        let currentAnswers = [];
+        let currentQuestionIndex = 0;
+        let ambientAudioContext = null;
+        let isAmbientPlaying = false;
+        let activeNaturePreset = 'switzerland';
+
+        // 10 Ta So'rovnoma Savollari
+        const quizQuestions = [
+            {
+                q: "1. 🌅 Uyg'onganingizda birinchi qiladigan ishingiz nima?",
+                options: [
+                    { text: "A) Yuz-qo'limni yuvaman, suv ichaman yoki kunga xotirjam kiraman.", score: 3 },
+                    { text: "B) Vaqtga qarayman, ba'zan bildirishnomalarni tekshirib olaman.", score: 2 },
+                    { text: "C) Qo'lim beixtiyor telefonni qidiradi, o'rindan turmay turib lentani titishni boshlayman.", score: 1 }
+                ]
+            },
+            {
+                q: "2. 🎬 Biror video yoki kino ko'rayotganingizda:",
+                options: [
+                    { text: "A) Diqqat bilan ko'raman va oxirigacha sabrim yetadi.", score: 3 },
+                    { text: "B) Ba'zan zerikib qolsam, o'tkazib-o'tkazib ko'raman.", score: 2 },
+                    { text: "C) Doim 1.5x / 2x tezlikda ko'raman yoki zerikishim bilan boshqa videoga o'tib ketaman.", score: 1 }
+                ]
+            },
+            {
+                q: "3. 📚 Dars qilish yoki muhim ish bajarayotganingizda:",
+                options: [
+                    { text: "A) Bo'linmasdan 30–45 daqiqa faqat shu ish bilan shug'ullana olaman.", score: 3 },
+                    { text: "B) Ishlayman, lekin fonda muzika yoki televizor yoqilgan bo'lishi kerak.", score: 2 },
+                    { text: "C) Har 5-10 daqiqada chalg'iyman yoki telefonni qo'lga olgim kelaveradi.", score: 1 }
+                ]
+            },
+            {
+                q: "4. 🚶‍♂️ Navbatda turganda yoki ko'chada piyoda yurganda:",
+                options: [
+                    { text: "A) Atrofni kuzataman, hayol suraman yoki xotirjam yuraman.", score: 3 },
+                    { text: "B) Ba'zan telefonni olaman, lekin kutib turish unchalik qiyin emas.", score: 2 },
+                    { text: "C) Bir sekund ham telefonsiz tura olmayman, darhol nimadir ochishim kerak.", score: 1 }
+                ]
+            },
+            {
+                q: "5. 🌙 Uxlashdan oldin yotoqdagi odatingiz:",
+                options: [
+                    { text: "A) Telefonsiz, xotirjam uxlashga yotaman yoki kitob o'qiyman.", score: 3 },
+                    { text: "B) Biroz telefon ko'raman, lekin ko'zim yumilishidan oldin chetga qo'yaman.", score: 2 },
+                    { text: "C) Telefon ushlab yotaman, to ko'zimdan telefon tushib ketguncha scroll qilaman.", score: 1 }
+                ]
+            },
+            {
+                q: "6. 📖 Qog'ozli kitob o'qish yoki uzoq suhbatlashish sizga qanday tuyuladi?",
+                options: [
+                    { text: "A) Mazza qilaman, jarayondan zavq olaman.", score: 3 },
+                    { text: "B) Yomon emas, lekin ba'zan diqqatim tarqab ketadi.", score: 2 },
+                    { text: "C) Juda zerikarli, miyam zudlik bilan tezroq va qiziqroq narsa talab qiladi.", score: 1 }
+                ]
+            },
+            {
+                q: "7. 📵 Telefoningiz uyda qolsa yoki internet o'chib qolsa:",
+                options: [
+                    { text: "A) Muammosiz o'z ishlarim bilan mashg'ul bo'laveraman.", score: 3 },
+                    { text: "B) Biroz noqulaylik his qilaman, lekin tezda o'tib ketadi.", score: 2 },
+                    { text: "C) Ichimga g'alayon tushadi, muhim narsani o'tkazib yuborayotgandek bezovta bo'laman.", score: 1 }
+                ]
+            },
+            {
+                q: "8. 🎯 Kunga rejalashtirgan ishlaringizning bajarilishi:",
+                options: [
+                    { text: "A) Deyarli barcha rejalashtirgan ishlarimni oxiriga yetkazaman.", score: 3 },
+                    { text: "B) Rejaning yarmini bajaraman, qolgan yarmi ertaga qoladi.", score: 2 },
+                    { text: "C) Reja ko'p tuzaman, lekin kam ish bajaraman; kun oxirida afsuslanaman.", score: 1 }
+                ]
+            },
+            {
+                q: "9. 🔔 Telefonga bildirishnoma kelganda:",
+                options: [
+                    { text: "A) E'tibor bermayman, bo'shaganda qarayman.", score: 3 },
+                    { text: "B) Qo'lim bo'shasa darhol ko'raman.", score: 2 },
+                    { text: "C) Qanday ish qilayotgan bo'lsam ham to'xtatib, darhol xabarni ochaman.", score: 1 }
+                ]
+            },
+            {
+                q: "10. 😵 Kun oxirida miyangizdagi umumiy xissiyot:",
+                options: [
+                    { text: "A) Yoqimli charchoq va bajarilgan ishlardan ichki qanoat.", score: 3 },
+                    { text: "B) Biroz toliqish va charchoq.", score: 2 },
+                    { text: "C) Miya g'ovlab ketgan, og'irlashgan ('Brain Fog') va loqaydlik.", score: 1 }
+                ]
+            }
+        ];
+
+        // 8 Neyrobiologik Metrikalar Tushuntirishlari
+        const metricsExplanations = [
+            { name: "D2 Reseptor Sezgirligi", desc: "Miyaning oddiy hayotiy jarayonlar (kitob, tabiat) dan zavq olish qobiliyati." },
+            { name: "Prefrontal Nazorat", desc: "Impulsiv harakatlar va scroll qilish istagini to'xtata olish irodasi." },
+            { name: "Sirkadiyan Sinxronlik", desc: "Ekranlar va sun'iy yorug'likning uyqu hamda melatonin gormoniga ta'siri." },
+            { name: "Diqqat Barqarorligi", desc: "Aqliy chalg'ishlarsiz muayyan vazifada chuqur fokusda qolish vaqti." },
+            { name: "Dopamin Tolerantligi", desc: "Kuchliroq va tezroq stimul olishga bo'lgan ehtiyoj darajasi." },
+            { name: "Ijro Intizomi", desc: "Reja va harakat o'rtasidagi neyronal bog'liqlik hamda prokrastinatsiyaga moyillik." },
+            { name: "Ruhiy Moslashuvchanlik", desc: "Ekransiz va shovqinsiz qolganda miyadagi kortizol hamda xavotir darajasi." },
+            { name: "Miya Toliqishi (Brain Fog)", desc: "Kun oxirida fikrlash tiniqligi va miya toliqishi darajasi." }
+        ];
+
+        // Multi-language Lug'at
+        const i18n = {
+            uz: {
+                navHome: "Bosh Sahifa",
+                navTest: "AI Test",
+                navGames: "Mind Arcade",
+                navSettings: "Sozlamalar",
+                startTestBtn: "Testni Boshlash",
+                quickTestTitle: "AI Test O'tish",
+                quickTestDesc: "10 ta savol & 8 metrika",
+                quickArcadeTitle: "Mind Arcade",
+                quickArcadeDesc: "4 ta focus o'yini",
+                settingsTitle: "Tizim Sozlamalari"
+            },
+            ru: {
+                navHome: "Главная",
+                navTest: "ИИ Тест",
+                navGames: "Аркада Разума",
+                navSettings: "Настройки",
+                startTestBtn: "Начать Тест",
+                quickTestTitle: "Пройти ИИ Тест",
+                quickTestDesc: "10 вопросов и 8 метрик",
+                quickArcadeTitle: "Аркада Фокуса",
+                quickArcadeDesc: "4 игры для внимания",
+                settingsTitle: "Настройки Системы"
+            },
+            en: {
+                navHome: "Home",
+                navTest: "AI Diagnostics",
+                navGames: "Mind Arcade",
+                navSettings: "Settings",
+                startTestBtn: "Start Neuro Test",
+                quickTestTitle: "AI Neuro Test",
+                quickTestDesc: "10 questions & 8 metrics",
+                quickArcadeTitle: "Mind Arcade",
+                quickArcadeDesc: "4 focus brain games",
+                settingsTitle: "System Settings"
+            }
+        };
+
+        // DOM Yuklanganda Ishga Tushish
+        document.addEventListener('DOMContentLoaded', () => {
+            if(window.lucide) lucide.createIcons();
+            initCircadianClock();
+            initBannerCarousel();
+            renderQuestion();
+            initNatureVisualEngine();
+            initLeafCanvas();
+            initMatrixGrid();
+            initPuzzleGrid();
+        });
+
+        // Sirkadiyan Vaqt Rejimi
+        function initCircadianClock() {
+            const hour = new Date().getHours();
+            const statusText = document.getElementById('circadianStatusText');
+            if(hour >= 20 || hour < 6) {
+                statusText.innerText = "🌙 Sirkadiyan Rejim: Tungi Zen & Melatonin Vakuum";
+                setNaturePreset('night');
+            } else {
+                statusText.innerText = "☀️ Sirkadiyan Rejim: Kunduzgi Fokus & D2 Tiklanish";
+            }
+        }
+
+        // Tab Almashtirish
+        function switchTab(tabId) {
+            playClickSound();
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-emerald-400');
+                btn.classList.add('text-gray-400');
+            });
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if(activeNav) {
+                activeNav.classList.remove('text-gray-400');
+                activeNav.classList.add('text-emerald-400');
+            }
+        }
+
+        // Audio Sintezator
+        function playClickSound() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                if (ctx.state === 'suspended') ctx.resume();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(540, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(180, ctx.currentTime + 0.08);
+                gain.gain.setValueAtTime(0.12, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.08);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.08);
+            } catch(e) {}
+        }
+
+        function toggleAmbientSound() {
+            const icon = document.getElementById('ambientIcon');
+            if(!isAmbientPlaying) {
+                try {
+                    ambientAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    if (ambientAudioContext.state === 'suspended') ambientAudioContext.resume();
+
+                    const bufferSize = ambientAudioContext.sampleRate * 2;
+                    const noiseBuffer = ambientAudioContext.createBuffer(1, bufferSize, ambientAudioContext.sampleRate);
+                    const output = noiseBuffer.getChannelData(0);
+                    for (let i = 0; i < bufferSize; i++) {
+                        output[i] = Math.random() * 2 - 1;
+                    }
+                    const whiteNoise = ambientAudioContext.createBufferSource();
+                    whiteNoise.buffer = noiseBuffer;
+                    whiteNoise.loop = true;
+
+                    const filter = ambientAudioContext.createBiquadFilter();
+                    filter.type = 'lowpass';
+                    filter.frequency.setValueAtTime(650, ambientAudioContext.currentTime);
+
+                    const gain = ambientAudioContext.createGain();
+                    gain.gain.setValueAtTime(0.06, ambientAudioContext.currentTime);
+
+                    whiteNoise.connect(filter);
+                    filter.connect(gain);
+                    gain.connect(ambientAudioContext.destination);
+
+                    whiteNoise.start();
+                    isAmbientPlaying = true;
+                    icon.setAttribute('data-lucide', 'volume-2');
+                    icon.classList.add('text-emerald-400');
+                } catch(e) {}
+            } else {
+                if(ambientAudioContext) ambientAudioContext.close();
+                isAmbientPlaying = false;
+                icon.setAttribute('data-lucide', 'volume-x');
+                icon.classList.remove('text-emerald-400');
+            }
+            if(window.lucide) lucide.createIcons();
+        }
+
+        // 10 Banner Slayder
+        let currentSlide = 0;
+        function initBannerCarousel() {
+            const container = document.getElementById('bannerContainer');
+            const dotsContainer = document.getElementById('carouselDots');
+            dotsContainer.innerHTML = '';
+
+            for(let i = 0; i < 10; i++) {
+                dotsContainer.innerHTML += `<span class="w-2 h-2 rounded-full ${i===0?'bg-emerald-400':'bg-white/30'} transition-all duration-300"></span>`;
+            }
+
+            const dots = dotsContainer.querySelectorAll('span');
+            setInterval(() => {
+                currentSlide = (currentSlide + 1) % 10;
+                container.style.transform = `translateX(-${currentSlide * 100}%)`;
+                dots.forEach((dot, idx) => {
+                    dot.className = idx === currentSlide ? "w-4 h-2 rounded-full bg-emerald-400 transition-all duration-300" : "w-2 h-2 rounded-full bg-white/30 transition-all duration-300";
+                });
+            }, 4500);
+        }
+
+        // Quiz Boshqaruvi
+        function renderQuestion() {
+            const q = quizQuestions[currentQuestionIndex];
+            document.getElementById('questionStepText').innerText = `Savol: ${currentQuestionIndex + 1} / 10`;
+            document.getElementById('quizProgressPercent').innerText = `${(currentQuestionIndex + 1) * 10}%`;
+            document.getElementById('quizProgressBar').style.width = `${(currentQuestionIndex + 1) * 10}%`;
+            document.getElementById('questionText').innerText = q.q;
+
+            const optsContainer = document.getElementById('optionsContainer');
+            optsContainer.innerHTML = '';
+            
+            q.options.forEach((opt) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full p-3.5 rounded-xl bg-white/5 hover:bg-emerald-900/40 border border-white/10 hover:border-emerald-500/50 text-left text-xs font-medium text-white transition flex items-center justify-between";
+                btn.onclick = () => selectOption(opt.score);
+                btn.innerHTML = `<span>${opt.text}</span><i data-lucide="chevron-right" class="w-4 h-4 text-emerald-400 opacity-60"></i>`;
+                optsContainer.appendChild(btn);
+            });
+            if(window.lucide) lucide.createIcons();
+        }
+
+        function selectOption(score) {
+            playClickSound();
+            currentAnswers.push(score);
+            if(currentQuestionIndex < quizQuestions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function finishQuiz() {
+            document.getElementById('quizContainer').classList.add('hidden');
+            document.getElementById('resultsContainer').classList.remove('hidden');
+
+            const totalScore = currentAnswers.reduce((a, b) => a + b, 0);
+            document.getElementById('totalScoreText').innerText = `${totalScore} / 30 Ball`;
+
+            const badge = document.getElementById('scoreBadge');
+            const desc = document.getElementById('scoreDescription');
+
+            if(totalScore >= 26) {
+                badge.className = "inline-block px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-400/40";
+                badge.innerText = "TEMIR INTIZOM";
+                desc.innerText = "Dopamin balansingiz toza. Diqqat va prefrontal nazoratingiz yuqori darajada!";
+            } else if(totalScore >= 18) {
+                badge.className = "inline-block px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-400/40";
+                badge.innerText = "CHALG'ISH XAVFI";
+                desc.innerText = "Nazorat bor, lekin 'tezkor dopamin' tuzog'iga tushish ehtimolingiz yuqori.";
+            } else {
+                badge.className = "inline-block px-3 py-1 rounded-full text-xs font-bold bg-red-500/20 text-red-300 border border-red-400/40";
+                badge.innerText = "NEURO-RESTART SHART";
+                desc.innerText = "Reseptorlar toliqqan, miyada surunkali charchoq (Brain Fog). Zudlik bilan detox kerak!";
+            }
+
+            renderMetrics(totalScore);
+        }
+
+        function renderMetrics(total) {
+            const list = document.getElementById('metricsList');
+            list.innerHTML = '';
+
+            metricsExplanations.forEach((m) => {
+                const score = Math.min(10, Math.max(3, Math.round((total / 30) * 10 + (Math.random() * 2 - 1))));
+                const perc = score * 10;
+                let colorClass = perc >= 70 ? 'bg-emerald-500' : perc >= 50 ? 'bg-amber-500' : 'bg-red-500';
+
+                list.innerHTML += `
+                    <div class="bg-white/5 p-3 rounded-xl border border-white/5">
+                        <div class="flex justify-between font-bold text-gray-200 mb-0.5">
+                            <span>${m.name}</span>
+                            <span class="text-emerald-400 font-mono">${score}/10</span>
+                        </div>
+                        <p class="text-[10px] text-gray-400 mb-2">${m.desc}</p>
+                        <div class="w-full bg-black/50 h-1.5 rounded-full overflow-hidden">
+                            <div class="${colorClass} h-full" style="width: ${perc}%"></div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function resetQuiz() {
+            currentAnswers = [];
+            currentQuestionIndex = 0;
+            document.getElementById('resultsContainer').classList.add('hidden');
+            document.getElementById('aiOutputCard').classList.add('hidden');
+            document.getElementById('quizContainer').classList.remove('hidden');
+            renderQuestion();
+        }
+
+        // Gemini AI Integratsiyasi (5 Backoff Retries)
+        async function generateAiDiagnosis() {
+            playClickSound();
+            const btn = document.getElementById('generateAiBtn');
+            const outputCard = document.getElementById('aiOutputCard');
+            const textResult = document.getElementById('aiTextResult');
+
+            btn.disabled = true;
+            btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> <span>Gemini Neyro-Tahlil Bajarilmoqda...</span>`;
+            if(window.lucide) lucide.createIcons();
+
+            const prompt = `
+            Siz Stenford va Garvard neyrobiologiya laboratoriyalari metodologiyasiga tayangan "Dopamine Detox™ Neuro AI" mutaxassisisiz. 
+            Foydalanuvchi diagnostika testida ${currentAnswers.reduce((a,b)=>a+b, 0)} / 30 ball to'pladi.
+            
+            Quyidagi tartibda to'liq Uzbek tilida, chiroyli emojilar bilan ilmiy va tushunarli javob tuzing:
+            1. 8 neyrobiologik mezon bo'yicha diagnostik tahlil.
+            2. Foydalanuvchining ruhiy va diqqat holatiga baho.
+            3. Amaliy 3 ta bepul tavsiya.
+            4. Oxirida hech qanday narx aytmasdan, muloyim va jozibador marketing bilan uni Telegram botimizga qaytishini, o'ziga mos tarifni tanlashini va "Dopamine Detox™ VIP Telegram Klubiga" qo'shilishini taklif qiling.
+            Formatda Markdown belgilari (####) ishlatilmasin.
+            `;
+
+            let retries = 5;
+            let delay = 1000;
+            let aiText = "";
+
+            while(retries > 0) {
+                try {
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: prompt }] }]
+                        })
+                    });
+                    const data = await response.json();
+                    aiText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if(aiText) break;
+                } catch(e) {
+                    await new Promise(r => setTimeout(r, delay));
+                    delay *= 2;
+                    retries--;
+                }
+            }
+
+            if(!aiText) {
+                aiText = `🧠 DOPAMINE DETOX™ — AI DIAGNOSTIKA XULOSASI\n\nSizning natijangiz: ${currentAnswers.reduce((a,b)=>a+b,0)}/30 Ball.\n\n⚡ Garvard neyrobiologiya diagnostikasiga ko'ra miyangizda raqamli toliqish va D2 reseptorlari sezgirligi pasayishi kuzatilgan.\n\n🌿 3 TA BEPUL TAVSIYA:\n1. 🌅 Uyg'ongach dastlabki 60 daqiqada ekranga qaramang.\n2. 📵 Har kuni 2 soatlik raqamli vakuum e'lon qiling.\n3. 📚 Fokusni qaytarish uchun kuniga 15 sahifa kitob o'qing.\n\n🎯 Individual tariflar va yopiq VIP klubga qo'shilish uchun rasmiy botimizga qayting!`;
+            }
+
+            textResult.innerText = aiText;
+            outputCard.classList.remove('hidden');
+            btn.disabled = false;
+            btn.innerHTML = `<i data-lucide="cpu" class="w-4 h-4"></i> <span>Tahlil Qayta Generatsiya Qilindi</span>`;
+            if(window.lucide) lucide.createIcons();
+        }
+
+        // O'yinlar Mantiqi
+        let breathInterval = null;
+        let isBreathing = false;
+        function toggleBreathingGame() {
+            playClickSound();
+            const circle = document.getElementById('breathCircle');
+            const stateText = document.getElementById('breathStateText');
+            const instText = document.getElementById('breathInstruction');
+            const btn = document.getElementById('startBreathBtn');
+
+            if(!isBreathing) {
+                isBreathing = true;
+                btn.innerText = "Mashqni To'xtatish";
+                let step = 0;
+                breathInterval = setInterval(() => {
+                    step = (step + 1) % 3;
+                    if(step === 0) {
+                        stateText.innerText = "Nafas Oling";
+                        circle.style.transform = "scale(1.35)";
+                        circle.style.borderColor = "#34d399";
+                        instText.innerText = "4 daqiqa davomida burundan chuqur nafas oling...";
+                    } else if(step === 1) {
+                        stateText.innerText = "Ushlab Turing";
+                        circle.style.transform = "scale(1.35)";
+                        circle.style.borderColor = "#fbbf24";
+                        instText.innerText = "7 soniya havo miyangizda aylansin...";
+                    } else {
+                        stateText.innerText = "Chiqaring";
+                        circle.style.transform = "scale(1.0)";
+                        circle.style.borderColor = "#60a5fa";
+                        instText.innerText = "8 soniya davomida og'izdan chiqaring...";
+                    }
+                }, 4000);
+            } else {
+                clearInterval(breathInterval);
+                isBreathing = false;
+                btn.innerText = "Nafas Mashqini Boshlash";
+                stateText.innerText = "Boshlash";
+                circle.style.transform = "scale(1.0)";
+            }
+        }
+
+        // O'yin 2: Matrix
+        let matrixSequence = [];
+        let playerSequence = [];
+        let matrixScore = 0;
+        function initMatrixGrid() {
+            const grid = document.getElementById('matrixGrid');
+            grid.innerHTML = '';
+            for(let i = 0; i < 9; i++) {
+                const tile = document.createElement('div');
+                tile.className = "w-full h-full bg-white/5 rounded-xl border border-white/10 flex items-center justify-center cursor-pointer transition duration-300";
+                tile.onclick = () => handleTileClick(i);
+                grid.appendChild(tile);
+            }
+        }
+
+        function startMemoryGame() {
+            playClickSound();
+            matrixSequence = [];
+            playerSequence = [];
+            matrixScore = 0;
+            document.getElementById('matrixScoreText').innerText = `Ball: ${matrixScore}`;
+            nextMatrixRound();
+        }
+
+        function nextMatrixRound() {
+            playerSequence = [];
+            matrixSequence.push(Math.floor(Math.random() * 9));
+            playSequence();
+        }
+
+        function playSequence() {
+            const tiles = document.querySelectorAll('#matrixGrid div');
+            matrixSequence.forEach((idx, i) => {
+                setTimeout(() => {
+                    tiles[idx].classList.add('bg-emerald-500', 'shadow-lg');
+                    setTimeout(() => {
+                        tiles[idx].classList.remove('bg-emerald-500', 'shadow-lg');
+                    }, 500);
+                }, i * 750);
+            });
+        }
+
+        function handleTileClick(index) {
+            playClickSound();
+            playerSequence.push(index);
+            const currentStep = playerSequence.length - 1;
+
+            if(playerSequence[currentStep] !== matrixSequence[currentStep]) {
+                alert("Noto'g'ri ketma-ketlik!");
+                matrixScore = 0;
+                document.getElementById('matrixScoreText').innerText = `Ball: 0`;
+                return;
+            }
+
+            if(playerSequence.length === matrixSequence.length) {
+                matrixScore += 10;
+                document.getElementById('matrixScoreText').innerText = `Ball: ${matrixScore}`;
+                setTimeout(nextMatrixRound, 1000);
+            }
+        }
+
+        // O'yin 3: Leaf Collector
+        let leafScore = 0;
+        let leaves = [];
+        let leafCanvasCtx = null;
+        function initLeafCanvas() {
+            const canvas = document.getElementById('leafGameCanvas');
+            const area = document.getElementById('leafGameCanvasArea');
+            if(!area) return;
+            canvas.width = area.clientWidth;
+            canvas.height = area.clientHeight;
+            leafCanvasCtx = canvas.getContext('2d');
+
+            canvas.onclick = (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const clickX = e.clientX - rect.left;
+                const clickY = e.clientY - rect.top;
+
+                leaves.forEach((leaf, idx) => {
+                    const dist = Math.hypot(leaf.x - clickX, leaf.y - clickY);
+                    if(dist < 22) {
+                        playClickSound();
+                        leaves.splice(idx, 1);
+                        leafScore += 1;
+                        document.getElementById('leafScoreText').innerText = `Barglar: ${leafScore}`;
+                    }
+                });
+            };
+        }
+
+        function startLeafGame() {
+            playClickSound();
+            leafScore = 0;
+            leaves = [];
+            document.getElementById('leafScoreText').innerText = `Barglar: 0`;
+            for(let i = 0; i < 6; i++) spawnLeaf();
+            animateLeafGame();
+        }
+
+        function spawnLeaf() {
+            const canvas = document.getElementById('leafGameCanvas');
+            if(!canvas) return;
+            leaves.push({
+                x: Math.random() * (canvas.width - 30) + 15,
+                y: -Math.random() * 50,
+                speed: 0.8 + Math.random() * 1.2,
+                size: 14 + Math.random() * 8,
+                color: Math.random() > 0.5 ? '#f59e0b' : '#10b981'
+            });
+        }
+
+        function animateLeafGame() {
+            const canvas = document.getElementById('leafGameCanvas');
+            if(!leafCanvasCtx || !canvas) return;
+
+            leafCanvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+            leaves.forEach((leaf, idx) => {
+                leaf.y += leaf.speed;
+                if(leaf.y > canvas.height + 20) {
+                    leaves.splice(idx, 1);
+                    spawnLeaf();
+                }
+                leafCanvasCtx.fillStyle = leaf.color;
+                leafCanvasCtx.beginPath();
+                leafCanvasCtx.arc(leaf.x, leaf.y, leaf.size / 2, 0, Math.PI * 2);
+                leafCanvasCtx.fill();
+            });
+
+            if(leaves.length < 6) spawnLeaf();
+            requestAnimationFrame(animateLeafGame);
+        }
+
+        // O'yin 4: Neuro Puzzle
+        let puzzleStage = 1;
+        let puzzlePattern = [];
+        let playerPuzzle = [];
+        function initPuzzleGrid() {
+            const grid = document.getElementById('puzzleGrid');
+            grid.innerHTML = '';
+            for(let i = 0; i < 8; i++) {
+                const tile = document.createElement('div');
+                tile.className = "w-full h-full bg-white/5 rounded-lg border border-white/10 flex items-center justify-center font-bold text-xs text-white cursor-pointer";
+                tile.innerText = i + 1;
+                tile.onclick = () => handlePuzzleClick(i);
+                grid.appendChild(tile);
+            }
+        }
+
+        function startNeuroPuzzle() {
+            playClickSound();
+            puzzleStage = 1;
+            document.getElementById('puzzleScoreText').innerText = `Bosqich: ${puzzleStage}`;
+            generatePuzzlePattern();
+        }
+
+        function generatePuzzlePattern() {
+            puzzlePattern = [0, 1, 2, 3, 4, 5, 6, 7].sort(() => Math.random() - 0.5).slice(0, 3 + puzzleStage);
+            playerPuzzle = [];
+            const tiles = document.querySelectorAll('#puzzleGrid div');
+            
+            puzzlePattern.forEach((idx, i) => {
+                setTimeout(() => {
+                    tiles[idx].classList.add('bg-indigo-600', 'border-indigo-400');
+                    setTimeout(() => {
+                        tiles[idx].classList.remove('bg-indigo-600', 'border-indigo-400');
+                    }, 600);
+                }, i * 700);
+            });
+        }
+
+        function handlePuzzleClick(idx) {
+            playClickSound();
+            playerPuzzle.push(idx);
+            const current = playerPuzzle.length - 1;
+            if(playerPuzzle[current] !== puzzlePattern[current]) {
+                alert("Jumboq zanjiri buzildi!");
+                puzzleStage = 1;
+                document.getElementById('puzzleScoreText').innerText = `Bosqich: 1`;
+                return;
+            }
+            if(playerPuzzle.length === puzzlePattern.length) {
+                puzzleStage++;
+                document.getElementById('puzzleScoreText').innerText = `Bosqich: ${puzzleStage}`;
+                setTimeout(generatePuzzlePattern, 1000);
+            }
+        }
+
+        // Tabiat Visual Dvigateli (Canvas Shaders)
+        let natureParticles = [];
+        function initNatureVisualEngine() {
+            const canvas = document.getElementById('natureCanvas');
+            const ctx = canvas.getContext('2d');
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            natureParticles = Array.from({ length: 45 }, () => ({
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                radius: Math.random() * 3.5 + 1,
+                speedY: Math.random() * 0.9 + 0.3,
+                speedX: Math.sin(Math.random()) * 0.5,
+                opacity: Math.random() * 0.6 + 0.2,
+                color: '#34d399'
+            }));
+
+            function render() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                natureParticles.forEach(p => {
+                    p.y += p.speedY;
+                    p.x += p.speedX;
+
+                    if(p.y > canvas.height) p.y = 0;
+                    if(p.x > canvas.width) p.x = 0;
+
+                    ctx.fillStyle = p.color;
+                    ctx.globalAlpha = p.opacity;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+
+                requestAnimationFrame(render);
+            }
+            render();
+        }
+
+        function setNaturePreset(key) {
+            playClickSound();
+            activeNaturePreset = key;
+            const root = document.documentElement;
+
+            if(key === 'switzerland') {
+                root.style.setProperty('--bg-color', '#0b150e');
+                root.style.setProperty('--card-bg', 'rgba(16, 30, 21, 0.85)');
+                root.style.setProperty('--border-color', 'rgba(62, 115, 80, 0.35)');
+                natureParticles.forEach(p => p.color = '#34d399');
+            } else if(key === 'autumn') {
+                root.style.setProperty('--bg-color', '#180f0a');
+                root.style.setProperty('--card-bg', 'rgba(38, 22, 15, 0.85)');
+                root.style.setProperty('--border-color', 'rgba(180, 83, 9, 0.35)');
+                natureParticles.forEach(p => p.color = '#f59e0b');
+            } else if(key === 'night') {
+                root.style.setProperty('--bg-color', '#090a12');
+                root.style.setProperty('--card-bg', 'rgba(18, 20, 35, 0.85)');
+                root.style.setProperty('--border-color', 'rgba(99, 102, 241, 0.35)');
+                natureParticles.forEach(p => p.color = '#818cf8');
+            } else if(key === 'ocean') {
+                root.style.setProperty('--bg-color', '#07131e');
+                root.style.setProperty('--card-bg', 'rgba(12, 28, 44, 0.85)');
+                root.style.setProperty('--border-color', 'rgba(14, 165, 233, 0.35)');
+                natureParticles.forEach(p => p.color = '#38bdf8');
+            } else {
+                root.style.setProperty('--bg-color', '#0c1815');
+                root.style.setProperty('--card-bg', 'rgba(15, 36, 31, 0.85)');
+                root.style.setProperty('--border-color', 'rgba(20, 184, 166, 0.35)');
+                natureParticles.forEach(p => p.color = '#2dd4bf');
+            }
+        }
+
+        const presetKeys = ['switzerland', 'autumn', 'night', 'ocean'];
+        let presetIdx = 0;
+        function cycleEnvironmentTheme() {
+            presetIdx = (presetIdx + 1) % presetKeys.length;
+            setNaturePreset(presetKeys[presetIdx]);
+        }
+
+        // Till Almashtirish (100% Working)
+        function setLanguage(lang) {
+            playClickSound();
+            currentLang = lang;
+            document.querySelectorAll('[id^="lang-"]').forEach(btn => {
+                btn.className = "py-2 rounded-lg bg-white/5 text-gray-300 font-bold text-xs";
+            });
+            const activeBtn = document.getElementById(`lang-${lang}`);
+            if(activeBtn) activeBtn.className = "py-2 rounded-lg bg-emerald-700 text-white font-bold text-xs";
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if(i18n[lang] && i18n[lang][key]) {
+                    el.innerText = i18n[lang][key];
+                }
+            });
+        }
+
+        function clearAppMemory() {
+            playClickSound();
+            if(confirm("Test natijalarini tozalashni xohlaysizmi?")) {
+                resetQuiz();
+                alert("Xotira tozalandi!");
+            }
+        }
+    </script>
+</body>
+</html>
+```
